@@ -4,20 +4,19 @@
 #include <exception>
 #include <iostream>
 
-namespace Exception{
+namespace Exception {
 
-static std::exception_ptr eptr  = nullptr;
+static std::exception_ptr eptr = nullptr;
 
 void exceptions_handler(std::exception_ptr eptr) {
-	try {
-		if(eptr) {
-			std::rethrow_exception(eptr);
-		} 
-	} catch (const std::exception& e) {
-			std::cout << "Exception Caught:" << e.what() << '\n';
-	}
+  try {
+    if (eptr) {
+      std::rethrow_exception(eptr);
+    }
+  } catch (const std::exception& e) {
+    std::cout << "Exception Caught:" << e.what() << '\n';
+  }
 }
 
-
-} // namespace 
-#endif 
+}  // namespace
+#endif

@@ -3,51 +3,50 @@
 
 #include <fstream>
 
-namespace handler{
+namespace handler {
 
-	namespace utility {
+namespace utility {
 
-	template <class user_pair>
-	const user_pair read_settings(const std::string& filename) {
-	    std::ifstream in_file;
-	    in_file.exceptions(std::ifstream::failbit | std::ifstream::badbit);
+template <class user_pair>
+const user_pair read_settings(const std::string& filename) {
+  std::ifstream in_file;
+  in_file.exceptions(std::ifstream::failbit | std::ifstream::badbit);
 
-	    std::string first;	    
-	    std::string second;
+  std::string first;
+  std::string second;
 
-	    try {
-	        in_file.open(filename);	    	
-	        
-	        std::getline(in_file, first);
-	        std::getline(in_file, second);	    
-	    } catch (const std::ifstream::failure& e) {
-	        throw e;
-	    }
-	    
-	    user_pair result{first, second};	    
+  try {
+    in_file.open(filename);
 
-	    return result;
-	}
+    std::getline(in_file, first);
+    std::getline(in_file, second);
+  } catch (const std::ifstream::failure& e) {
+    throw e;
+  }
 
-	const std::string get_public_url(const std::string& filename) {
-	    std::ifstream in_file;
-	    in_file.exceptions(std::ifstream::failbit | std::ifstream::badbit);
-	    
-	    std::string url;
+  user_pair result{first, second};
 
-	    try {
-	        in_file.open(filename);
-	        std::getline(in_file, url);
-	    } 
-	    catch (const std::ifstream::failure& e) {
-	        throw e;
-	    }
-	    
-	    return url;
-	}
+  return result;
+}
 
-} // namepsace utility
+const std::string get_public_url(const std::string& filename) {
+  std::ifstream in_file;
+  in_file.exceptions(std::ifstream::failbit | std::ifstream::badbit);
 
-} // namespace Handler
+  std::string url;
+
+  try {
+    in_file.open(filename);
+    std::getline(in_file, url);
+  } catch (const std::ifstream::failure& e) {
+    throw e;
+  }
+
+  return url;
+}
+
+}  // namepsace utility
+
+}  // namespace Handler
 
 #endif
