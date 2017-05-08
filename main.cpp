@@ -38,12 +38,12 @@ int main(int argc, const char* argv[]) {
 
 		// Asynchronously launch connection thread 
 		std::future<void> twitter_thread = std::async( std::launch::async, [&twitter_stream_handler](){ 
-														try {															
-															twitter_stream_handler.get_request();
-														} catch(...) {
-															Exception::eptr = std::current_exception(); 
-														}
-														});	
+											try {															
+												twitter_stream_handler.get_request();
+											} catch(...) {
+												Exception::eptr = std::current_exception(); 
+											}
+											});	
 		/*
 		// Asynchronously launch connection thread 
 		std::future<void> sentiment140_thread = std::async( std::launch::async, [&sentiment140_handler, &j](){ 
