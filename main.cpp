@@ -21,9 +21,9 @@ int main(int argc, const char* argv[]) {
 
     	using namespace handler;
 
-        // Read oauth conusmer Key-secret, access token id - secret from file and twitter api url from file       	
-    	const consumer_credentials c_p 		= utility::read_settings<consumer_credentials>(argv[1]);  
-    	const token_credentials t_p 		= utility::read_settings<token_credentials>(argv[2]);       
+		// Read oauth conusmer Key-secret, access token id - secret from file and twitter api url from file       	
+		const consumer_credentials c_p 		= utility::read_settings<consumer_credentials>(argv[1]);  
+		const token_credentials t_p 		= utility::read_settings<token_credentials>(argv[2]);       
 		constexpr auto twitter_url 			= "https://stream.twitter.com/1.1/statuses/sample.json";
 		constexpr auto twitter_http_method 	= "GET";
 		// constexpr auto sentiment140_url 	= "http://www.sentiment140.com/api/bulkClassifyJson?appid=deepak.gurung@nevada.unr.edu";
@@ -38,12 +38,12 @@ int main(int argc, const char* argv[]) {
 
 		// Asynchronously launch connection thread 
 		std::future<void> twitter_thread = std::async( std::launch::async, [&twitter_stream_handler](){ 
-							try{															
-								twitter_stream_handler.get_request();
-							} catch(...) {
-								Exception::eptr = std::current_exception(); 
-							}
-						});	
+														try {															
+															twitter_stream_handler.get_request();
+														} catch(...) {
+															Exception::eptr = std::current_exception(); 
+														}
+														});	
 /*
 		// Asynchronously launch connection thread 
 		std::future<void> sentiment140_thread = std::async( std::launch::async, [&sentiment140_handler, &j](){ 
