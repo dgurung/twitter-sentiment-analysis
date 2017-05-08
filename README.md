@@ -32,7 +32,7 @@ make
 + ConnectionHandler handles curl session.
 + TwitterHandler handles twitter connection.
 + AnalysisHandler handles Sentiment140 REST API services.
-+ Use CRTP idiom to instantiate TwitterHandler and AnalysisHandler from ConnectionHandler class template.
++ Use [CRTP](https://en.wikipedia.org/wiki/Curiously_recurring_template_pattern) idiom to instantiate TwitterHandler and AnalysisHandler from ConnectionHandler class template.
 + Use Ringbuffer for queuing up tweet stream.
 + Ringbuffer uses```boost::lockless::spsc_queue``` along with ```boost::interprocess::shared_memory```.
 
