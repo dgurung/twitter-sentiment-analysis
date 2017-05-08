@@ -36,16 +36,6 @@ int main(int argc, const char* argv[]) {
 		// Create twitter stream handler with oauth2 protocol
 		TwitterHandler twitter_stream_handler(signed_url, queue);
 
-		// create object from string literal
-		json j = R"(
-		    {"data": 
-		        [   {"text": "I love Titanic.", "query": "Titanic", "topic": "movies"}, 
-		            {"text": "I hate Titanic.", "query": "Titanic", "topic": "movies"}
-		        ]
-		    }
-		)"_json;
-		
-
 		// Asynchronously launch connection thread 
 		std::future<void> twitter_thread = std::async( std::launch::async, [&twitter_stream_handler](){ 
 							try{															
