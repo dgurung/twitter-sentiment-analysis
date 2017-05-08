@@ -15,11 +15,11 @@ using json = nlohmann::json;
 int main(int argc, const char* argv[]) {
 
     try {
-    	if (argc != 3) {
-        	throw std::invalid_argument("Usage: ./TwitterStream <consumer-key,secret> <access-token,secret>");
-    	}
+		if (argc != 3) {
+			throw std::invalid_argument("Usage: ./TwitterStream <consumer-key,secret> <access-token,secret>");
+		}
 
-    	using namespace handler;
+		using namespace handler;
 
 		// Read oauth conusmer Key-secret, access token id - secret from file and twitter api url from file       	
 		const consumer_credentials c_p 		= utility::read_settings<consumer_credentials>(argv[1]);  
@@ -44,7 +44,7 @@ int main(int argc, const char* argv[]) {
 															Exception::eptr = std::current_exception(); 
 														}
 														});	
-/*
+		/*
 		// Asynchronously launch connection thread 
 		std::future<void> sentiment140_thread = std::async( std::launch::async, [&sentiment140_handler, &j](){ 
 							try{															
@@ -54,7 +54,7 @@ int main(int argc, const char* argv[]) {
 								Exception::eptr = std::current_exception(); 
 							}
 						});	
-*/
+		*/
 	} catch (const std::invalid_argument& e) {
 		std::cout << e.what() << '\n';
 		return 1;
