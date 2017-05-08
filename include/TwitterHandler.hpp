@@ -28,7 +28,7 @@ public:
 
 		json j = json::parse(ptr);
 
-		//queue->spsc_ring_buffer->push(shm::shared_string(ptr, queue->char_alloc));        
+		queue->spsc_ring_buffer->push(shm::shared_string(ptr, queue->char_alloc));        
 		std::cout << std::setw(4) << size << '\t' << static_cast<void*>(ptr) << '\t' << nmemb << '\n';
 		return size * nmemb;
 	}
