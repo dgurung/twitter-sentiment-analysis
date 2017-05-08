@@ -20,7 +20,8 @@ Go to [twitter](https://dev.twitter.com/) and register your app. Also get access
 + Access token key and secret.
 
 #### Build   
-```cpp
+```
+mkdir build && cd build
 cmake .. -DBOOST_ROOT=/usr/local
 make
 ./main
