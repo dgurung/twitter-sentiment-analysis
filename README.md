@@ -29,8 +29,8 @@ make
 
 #### Architecture     
 + A producer handler subscribes to twitter public stream and gets the data.     
-+ A Rigbuffer, designed in single producer and single consmer scheme, buffers data.     
-+ A consumer consumes data from ring buffer and delivers the data to Sentiment140.     
++ Data is buffered in a ring-buffer. Ring buffer is designed in single producer and single consmer scheme.   
++ A consumer consumes data from ring-buffer and delivers the data to Sentiment140.com     
 + Response from Sentiment140 visualized.  
 Example of such architecture is here: [Building a Near Real-Time Discovery Platform with AWS](https://aws.amazon.com/blogs/big-data/building-a-near-real-time-discovery-platform-with-aws/)
 
