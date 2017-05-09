@@ -11,7 +11,7 @@ Install these libraries and dev files.
 ```
 sudo apt-get install \
         liboauth-dev \
-        curl libocurl4-openssl-dev \
+        curl libocurl4-openssl-dev
 ```
 
 #### Requirement to access twitter public stream API   
