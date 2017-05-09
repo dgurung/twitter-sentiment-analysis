@@ -40,9 +40,12 @@ Example of such architecture is here: [Building a Near Real-Time Discovery Platf
 + ConnectionHandler handles curl session.
 + TwitterHandler handles twitter connection.
 + AnalysisHandler handles Sentiment140 REST API services.
-+ Use [CRTP](https://en.wikipedia.org/wiki/Curiously_recurring_template_pattern) idiom to instantiate TwitterHandler and AnalysisHandler from ConnectionHandler class template.
-+ Use Ringbuffer for queuing up tweet stream.
-+ Ringbuffer uses```boost::lockless::spsc_queue``` along with ```boost::interprocess::shared_memory```.
++ Use [CRTP](https://en.wikipedia.org/wiki/Curiously_recurring_template_pattern) idiom to instantiate TwitterHandler and AnalysisHandler from ConnectionHandler class template.   
++ Use Ringbuffer for queuing up tweet stream.   
++ Ringbuffer uses```boost::lockless::spsc_queue``` along with ```boost::interprocess::shared_memory```.   
++ Use [RAII](http://en.cppreference.com/w/cpp/language/raii) to design class. This idiom binds life cycle of all resources to the lifetime of an object.  
++ Two async threads for twitter stream handling and sentiment140 REST API handling.  
+
 
 #### TODO       
 + fix bulk post request to sentiment140.com API  
