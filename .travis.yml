@@ -10,13 +10,19 @@ cache:
 
 addons:
    apt:
+     sources:
+       - boost-latest
+       - ubuntu-toolchain-r-test
+       - george-edison55-precise-backports
      packages:
        - libcurl4-dev
        - liboauth0
        - liboauth-dev
        - g++-5
        - libboost-1.58-all-dev
-       
+       - cmake
+       - cmake-data
+
 install:
   - if [ "$CXX" = "g++" ]; then export CXX="g++-5"; fi
  
