@@ -1,0 +1,33 @@
+language: cpp
+sudo: false
+dist: xenial
+compiler:
+  -g++
+os:
+  -linux
+cache:
+  apt: true
+
+addons:
+   apt:
+     packages:
+       - libcurl4-dev
+       - liboauth0
+       - liboauth-dev
+       - g++-5
+       - libboost-1.58-all-dev
+       
+install:
+  - if [ "$CXX" = "g++" ]; then export CXX="g++-5"; fi
+ 
+before_script:
+  - mkdir build
+  - cd build
+  - cmake ..
+
+script: make 
+
+notifications:
+  email:
+    false
+
