@@ -13,23 +13,49 @@ addons:
      sources:
        - boost-latest
        - ubuntu-toolchain-r-test
-       - george-edison55-precise-backports
+       - kalakris-cmake
      packages:
        - libcurl4-dev
        - liboauth0
        - liboauth-dev
-       - g++-5
-       - libboost-1.58-all-dev
+       - g++-6
        - cmake
        - cmake-data
 
 install:
-  - if [ "$CXX" = "g++" ]; then export CXX="g++-5"; fi
+  # All dependcies are installed in ${TRAVIS_BUILD_DIR}/deps/
+  - DEPS_DIR="${TRAVIS_BUILD_DIR}/deps"
+  - mkdir -p ${DEPS_DIR} && cd ${DEPS_DIR}
+
+
+  # override compiler if needed 
+  - if [ "$CXX" = "g++" ]; then export CXX="g++-6"; fi
  
+  # Install Boost headers
+  - |
+    BOOST_VERSION=1.63.0
+    BOOST_DIR=${DEPS_DIR}/boost-${BOOST_VERSION}
+    BOOST_URL="http://sourceforge.net/projects/boost/files/boost/${BOOST_VERSION}/boost_${BOOST_VERSION//\./_}.tar.gz"
+    mkdir -p ${BOOST_DIR}
+    { travis_retry wget --quiet -O - ${BOOST_URL} | tar --strip-components=1 -xz -C ${BOOST_DIR}; }
+    CMAKE_OPTIONS+=" -DBOOST_ROOT=${BOOST_DIR}" 
+
+  # Install a recent CMake
+  - |
+    CMAKE_URL="https://cmake.org/files/v3.7/cmake-3.7.2-Linux-x86_64.tar.gz"
+    mkdir cmake && travis_retry wget --no-check-certificate --quiet -O - ${CMAKE_URL} | tar --strip-components=1 -xz -C cmake
+    export PATH=${DEPS_DIR}/cmake/bin:${PATH}
+
+
+env:
+  - CONFIGURATION=Debug
+
 before_script:
+  # Go back to the root of the project and setup the build directory
+  - cd ${TRAVIS_BUILD_DIR} 
   - mkdir build
   - cd build
-  - cmake ..
+  - cmake -DCMAKE_BUILD_TYPE=$CONFIGURATION .. ${CMAKE_OPTIONS}
 
 script: make 
 
