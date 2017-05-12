@@ -1,8 +1,8 @@
 language: cpp
 sudo: false
 dist: xenial
-compiler:
-  -g++
+#compiler:
+#  -g++
 os:
   -linux
 cache:
@@ -59,7 +59,7 @@ before_script:
   - mkdir build
   - cd build
   - cmake -DCMAKE_BUILD_TYPE=$CONFIGURATION 
-          -DCMAKE_CXX_COMPILER=g++5
+          -DCMAKE_CXX_COMPILER=$(which ${CXX})
           ${CMAKE_OPTIONS}
           ..
 
