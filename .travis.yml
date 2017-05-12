@@ -17,7 +17,8 @@ install:
   # Install g++-6 
   - sudo apt-get install -qq g++-6
   - sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-6 90
- 
+  - ${CXX} --version
+
 
   # All dependcies are installed in ${TRAVIS_BUILD_DIR}/deps/
   - DEPS_DIR="${TRAVIS_BUILD_DIR}/deps"
@@ -48,6 +49,11 @@ install:
     export PATH=${DEPS_DIR}/cmake/bin:${PATH}
   - cmake --version
 
+  # Install Boost.Build
+  - |
+    (cd ${BOOST_DIR}/tools/build && ./bootstrap.sh && ./b2 install --prefix=${DEPS_DIR}/b2)
+    export PATH=${DEPS_DIR}/b2/bin:${PATH}
+    
 env:
   - CONFIGURATION=Debug
 
