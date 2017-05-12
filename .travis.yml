@@ -27,10 +27,8 @@ install:
   # Install g++-6 
   - sudo apt-get install -qq g++-6
   - sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-6 90
-
-
-  # override compiler if needed 
-  - if [ "$CXX" = "g++" ]; then export CXX="g++-5"; fi
+  
+  # define boost version
   - BOOST_VERSION=1.63.0
 
   # Install Boost headers
