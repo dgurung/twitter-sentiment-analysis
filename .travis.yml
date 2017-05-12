@@ -54,12 +54,15 @@ env:
   - CONFIGURATION=Debug
 
 before_script:
+  # 
+  - module load g++ 
+
   # Go back to the root of the project and setup the build directory
   - cd ${TRAVIS_BUILD_DIR} 
   - mkdir build
   - cd build
   - cmake -DCMAKE_BUILD_TYPE=$CONFIGURATION 
-    #          -DCMAKE_CXX_COMPILER=g++-5
+          -DCMAKE_CXX_COMPILER=$(which g++)
           ${CMAKE_OPTIONS}
           ..
 
