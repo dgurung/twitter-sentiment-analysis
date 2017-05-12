@@ -55,7 +55,7 @@ env:
 
 before_script:
   # 
-  - module load g++ 
+  - module load gcc 
 
   # Go back to the root of the project and setup the build directory
   - cd ${TRAVIS_BUILD_DIR} 
