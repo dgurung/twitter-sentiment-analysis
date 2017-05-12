@@ -44,14 +44,15 @@ install:
       mkdir -p ${BOOST_DIR}
       { travis_retry wget --quiet -O - ${BOOST_URL} | tar --strip-components=1 -xz -C ${BOOST_DIR}; } || exit 1
       # Install Boost library
-      (cd ${BOOST_DIR}/tools/build && ./bootstrap.sh && ./b2 install --prefix=${DEPS_DIR}/b2 --with-libraries=program_options,filesystem,system,thread,test,timer,chrono)
+      cd ${BOOST_DIR}/tools/build && ./bootstrap.sh --prefix=${BOOST_DIR} --with-libraries=program_options,filesystem,system,thread,test,timer,chrono
+      ./b2 -d0 install
       export PATH=${DEPS_DIR}/b2/bin:${PATH}
     fi                     
 
   - export CMAKE_OPTIONS+=" -DBoost_NO_BOOST_CMAKE=TRUE"   # headers 
   - export CMAKE_OPTIONS+=" -DBoost_NO_SYSTEM_PATHS=TRUE"   # 
   - export CMAKE_OPTIONS+=" -DBOOST_ROOT=${BOOST_DIR}"   # headers
-  - export CMAKE_OPTIONS+=" -DBoost_LIBRARY_DIRS=${DEPS_DIR}/b2" # library
+    #  - export CMAKE_OPTIONS+=" -DBoost_LIBRARY_DIRS=${DEPS_DIR}/b2" # library
   
   # Install a recent CMake
   - |
