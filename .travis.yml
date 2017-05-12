@@ -30,7 +30,7 @@ install:
   - mkdir -p ${DEPS_DIR} && cd ${DEPS_DIR}
   
   # override boost version
-  - BOOST_VERSION=1.63.0
+  - BOOST_VERSION=1.64.0
 
   # Install Boost headers
   - |
@@ -46,9 +46,12 @@ install:
       # Install Boost library
       cd ${BOOST_DIR}/tools/build && ./bootstrap.sh --prefix=${BOOST_DIR} --with-libraries=program_options,filesystem,system,thread,test,timer,chrono
       ./b2 -d0 install
-    fi                     
+      
+    fi    
 
-  # - export CMAKE_OPTIONS+=" -DBOOST_ROOT=${BOOST_DIR}"   # headers
+  - CMAKE_OPTIONS+=" -DBOOST_ROOT=${BOOST_DIR}"
+
+  
  
   # Install a recent CMake
   - |
@@ -65,7 +68,7 @@ script:
   - cd build
   - echo ${CMAKE_OPTIONS}
   - cmake -DCMAKE_BUILD_TYPE=$CONFIGURATION 
-          -DCMAKE_LIBRARY_PATH=${BOOST_DIR} 
+          ${CMAKE_OPTIONS} 
           ..    
   - make
 
