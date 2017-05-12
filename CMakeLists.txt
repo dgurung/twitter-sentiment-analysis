@@ -19,10 +19,7 @@ set (Boost_NO_SYSTEM_PATHS ON)
 set (Boost_USE_MULTITHREADED ON)
 
 # use cmake flags instead.
-#find_package (Boost REQUIRED COMPONENTS
-#    system
-#    thread    
-#    )
+find_package (Boost 1.64.0 COMPONENTS system thread)
 
 include_directories (SYSTEM ${Boost_INCLUDE_DIRS})
 link_libraries (${Boost_LIBRARIES})
