@@ -1,18 +1,14 @@
 language: cpp
 sudo: required
 dist: xenial
-#compiler:
-#  -g++
+compiler: gcc
+
 os:
   -linux
-cache:
-  apt: true
 
-addons:
-   apt:
-     sources:
-       - boost-latest
-       - ubuntu-toolchain-r-test
+before_install:
+  - sudo add-apt-repository -y ppa:ubuntu-toolchain-r/test
+  - sudo apt-get update -qq
 
      packages:
        - libcurl4-dev
@@ -20,13 +16,17 @@ addons:
        - liboauth-dev
 
 install:
-  # All dependcies are installed in ${TRAVIS_BUILD_DIR}/deps/
-  - DEPS_DIR="${TRAVIS_BUILD_DIR}/deps"
-  - mkdir -p ${DEPS_DIR} && cd ${DEPS_DIR}
+  # Install oauth and libcurl library with headers
+  - sudo apt-get install libcurl4-dev liboauth0 liboauth-dev
 
   # Install g++-6 
   - sudo apt-get install -qq g++-6
   - sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-6 90
+ 
+
+  # All dependcies are installed in ${TRAVIS_BUILD_DIR}/deps/
+  - DEPS_DIR="${TRAVIS_BUILD_DIR}/deps"
+  - mkdir -p ${DEPS_DIR} && cd ${DEPS_DIR}
   
   # define boost version
   - BOOST_VERSION=1.63.0
