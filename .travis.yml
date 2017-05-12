@@ -12,7 +12,7 @@ before_install:
 
 install:
   # Install oauth and libcurl library with headers
-  - sudo apt-get install libcurl4-dev liboauth0 liboauth-dev
+  - sudo apt-get install libcurl4-openssl-dev liboauth0 liboauth-dev
 
   # Install g++-6 
   - sudo apt-get install -qq g++-6
