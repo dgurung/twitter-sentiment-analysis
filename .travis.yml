@@ -48,11 +48,8 @@ install:
       ./b2 -d0 install
     fi                     
 
-    #- export CMAKE_OPTIONS+=" -DBoost_NO_BOOST_CMAKE=TRUE"   # headers 
-    #- export CMAKE_OPTIONS+=" -DBoost_NO_SYSTEM_PATHS=TRUE"   # 
-  - export CMAKE_OPTIONS+=" -DBOOST_ROOT=${BOOST_DIR}"   # headers
-    #- export CMAKE_OPTIONS+=" -DBoost_LIBRARY_DIRS=${DEPS_DIR}/b2" # library
-  
+  # - export CMAKE_OPTIONS+=" -DBOOST_ROOT=${BOOST_DIR}"   # headers
+ 
   # Install a recent CMake
   - |
     CMAKE_URL="https://cmake.org/files/v3.7/cmake-3.7.2-Linux-x86_64.tar.gz"
@@ -67,7 +64,9 @@ script:
   - mkdir build
   - cd build
   - echo ${CMAKE_OPTIONS}
-  - cmake -DCMAKE_BUILD_TYPE=$CONFIGURATION ${CMAKE_OPTIONS} ..    
+  - cmake -DCMAKE_BUILD_TYPE=$CONFIGURATION 
+          -DCMAKE_LIBRARY_PATH=${BOOST_DIR} 
+          ..    
   - make
 
 
