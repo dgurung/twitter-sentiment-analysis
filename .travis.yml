@@ -4,16 +4,11 @@ dist: trusty
 compiler: gcc
 
 os:
-  -linux
+  - linux
 
 before_install:
   - sudo add-apt-repository -y ppa:ubuntu-toolchain-r/test
   - sudo apt-get update -qq
-
-     packages:
-       - libcurl4-dev
-       - liboauth0
-       - liboauth-dev
 
 install:
   # Install oauth and libcurl library with headers
