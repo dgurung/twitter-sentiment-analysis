@@ -32,21 +32,9 @@ install:
   # override boost version
   - BOOST_VERSION=1.64.0
 
-
-# Download and install recent cmake
-- |
-  if [[ ${TRAVIS_OS_NAME} == "linux" ]]; then
-    CMAKE_URL="https://cmake.org/files/v3.7/cmake-3.7.2-Linux-x86_64.tar.gz"
-    mkdir -p ${DEPS_DIR}/cmake
-    travis_retry wget --no-check-certificate --quiet -O - ${CMAKE_URL} | tar --strip-components=1 -xz -C ${DEPS_DIR}/cmake
-    export PATH=${DEPS_DIR}/cmake/bin:${PATH}
-  fi
-- cmake --version
-
-# Install Boost headers
-- |
-  BOOST_DIR=${DEPS_DIR}/boost-${BOOST_VERSION}
-  if [ ! -f "${BOOST_DIR}_cached" ]; then
+  # Install Boost headers
+  - |
+    BOOST_DIR=${DEPS_DIR}/boost-${BOOST_VERSION}
     if [[ "${BOOST_VERSION}" == "trunk" ]]; then
       BOOST_URL="http://github.com/boostorg/boost.git"
       travis_retry git clone --depth 1 --recursive --quiet ${BOOST_URL} ${BOOST_DIR} || exit 1
@@ -55,20 +43,22 @@ install:
       BOOST_URL="http://sourceforge.net/projects/boost/files/boost/${BOOST_VERSION}/boost_${BOOST_VERSION//\./_}.tar.gz"
       mkdir -p ${BOOST_DIR}
       { travis_retry wget --quiet -O - ${BOOST_URL} | tar --strip-components=1 -xz -C ${BOOST_DIR}; } || exit 1
-      
       # Install Boost library
-      cd ${BOOST_DIR}/tools/build
-      ./bootstrap.sh --prefix=${BOOST_DIR} --with-libraries=program_options,filesystem,system,thread,test,timer,chrono
-      ./b2 -d0 install      
-    fi
-    popd
-    touch ${BOOST_DIR}_cached
-    else
-      echo 'Using cached Boost ${BOOST_VERSION} libraries.'
-  fi    
+      cd ${BOOST_DIR}/tools/build && ./bootstrap.sh --prefix=${BOOST_DIR} --with-libraries=program_options,filesystem,system,thread,test,timer,chrono
+      ./b2 -d0 install
+      
+    fi    
 
-- CMAKE_OPTIONS+=" -DBOOST_ROOT=${BOOST_DIR}"
+  - CMAKE_OPTIONS+=" -DBOOST_ROOT=${BOOST_DIR}"
  
+  # Install a recent CMake
+  - |
+    CMAKE_URL="https://cmake.org/files/v3.7/cmake-3.7.2-Linux-x86_64.tar.gz"
+    mkdir -p ${DEPS_DIR}/cmake 
+    travis_retry wget --no-check-certificate --quiet -O - ${CMAKE_URL} | tar --strip-components=1 -xz -C ${DEPS_DIR}/cmake
+    export PATH=${DEPS_DIR}/cmake/bin:${PATH}
+  - cmake --version
+
 script:
   # Go back to the root of the project and setup the build directory
   - cd ${TRAVIS_BUILD_DIR} 
