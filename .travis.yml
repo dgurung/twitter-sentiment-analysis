@@ -46,13 +46,12 @@ install:
       # Install Boost library
       cd ${BOOST_DIR}/tools/build && ./bootstrap.sh --prefix=${BOOST_DIR} --with-libraries=program_options,filesystem,system,thread,test,timer,chrono
       ./b2 -d0 install
-      export PATH=${DEPS_DIR}/b2/bin:${PATH}
     fi                     
 
-  - export CMAKE_OPTIONS+=" -DBoost_NO_BOOST_CMAKE=TRUE"   # headers 
-  - export CMAKE_OPTIONS+=" -DBoost_NO_SYSTEM_PATHS=TRUE"   # 
+    #- export CMAKE_OPTIONS+=" -DBoost_NO_BOOST_CMAKE=TRUE"   # headers 
+    #- export CMAKE_OPTIONS+=" -DBoost_NO_SYSTEM_PATHS=TRUE"   # 
   - export CMAKE_OPTIONS+=" -DBOOST_ROOT=${BOOST_DIR}"   # headers
-    #  - export CMAKE_OPTIONS+=" -DBoost_LIBRARY_DIRS=${DEPS_DIR}/b2" # library
+    #- export CMAKE_OPTIONS+=" -DBoost_LIBRARY_DIRS=${DEPS_DIR}/b2" # library
   
   # Install a recent CMake
   - |
