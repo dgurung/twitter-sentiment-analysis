@@ -63,7 +63,7 @@ before_script:
   - mkdir build
   - cd build
   - cmake -DCMAKE_BUILD_TYPE=$CONFIGURATION 
-           ${CMAKE_OPTIONS}
+          -DBOOST_ROOT=${BOOST_DIR}         
           ..
 
 script: make 
