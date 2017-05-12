@@ -13,14 +13,12 @@ addons:
      sources:
        - boost-latest
        - ubuntu-toolchain-r-test
-       - kalakris-cmake
+
      packages:
        - libcurl4-dev
        - liboauth0
        - liboauth-dev
        - g++-5
-       - cmake
-       - cmake-data
 
 install:
   # All dependcies are installed in ${TRAVIS_BUILD_DIR}/deps/
@@ -51,8 +49,6 @@ install:
     CMAKE_URL="https://cmake.org/files/v3.7/cmake-3.7.2-Linux-x86_64.tar.gz"
     mkdir cmake && travis_retry wget --no-check-certificate --quiet -O - ${CMAKE_URL} | tar --strip-components=1 -xz -C cmake
     export PATH=${DEPS_DIR}/cmake/bin:${PATH}
-
-
 
 env:
   - CONFIGURATION=Debug
